@@ -167,7 +167,6 @@ get_option(int argc, char * argv[])
         }
         strcpy(file_path, argv[optind + 2]) ;
         file_path[strlen(argv[optind + 2])] = '\0' ;
-        printf("checking : %s length %d\n", file_path, strlen(file_path)) ;
         
         dest_dir = (char *) malloc(strlen(argv[optind + 3]) + 1) ;
         if (dest_dir == NULL) {
@@ -176,7 +175,6 @@ get_option(int argc, char * argv[])
         }
         strcpy(dest_dir, argv[optind + 3]) ;
         dest_dir[strlen(argv[optind + 3])] = '\0' ;
-        printf("checking : %s length %d\n", dest_dir, strlen(dest_dir)) ;
     }
 
     // check if options were provided

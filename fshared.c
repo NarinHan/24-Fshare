@@ -296,24 +296,23 @@ put_response(int conn)
         free(recv_payload) ;
         return ;
     }
-    char * filename = (char *) malloc(strlen(basename(recv_payload)) + 1) ;
-    filename = basename(recv_payload) ;
+    char * file_name = (char *) malloc(strlen(basename(recv_payload)) + 1) ;
+    strcpy(file_name, basename(recv_payload)) ;
     free(recv_payload) ;
-    printf("checking : put filename %s\n", filename) ;
 
     // destination path from the payload
     recv_payload = (char *) malloc(ch.des_path_len) ;
     if ((received = recv(conn, recv_payload, ch.des_path_len, 0)) != ch.des_path_len) {
         perror("receive error destination : ") ;
-        free(filename) ;
+        free(file_name) ;
         free(recv_payload) ;
         return ;
     }
     
-    int file_len = ch.des_path_len + 1 + strlen(filename) + 1 ;
+    int file_len = ch.des_path_len + 1 + strlen(file_name) + 1 ;
     char * file_towrite = (char *) malloc(file_len) ;
-    snprintf(file_towrite, file_len, "%s/%s", recv_payload, filename) ;
-    free(filename) ;
+    snprintf(file_towrite, file_len, "%s/%s", recv_payload, file_name) ;
+    free(file_name) ;
     free(recv_payload) ;
 
     printf("checking : put destination %s\n", file_towrite) ;
