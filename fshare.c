@@ -28,6 +28,7 @@
 #include <sys/stat.h>
 #include <libgen.h>
 #include <errno.h>
+#include <pthread.h>
 
 typedef enum {
     list,
