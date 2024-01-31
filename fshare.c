@@ -29,7 +29,6 @@
 #include <libgen.h>
 #include <errno.h>
 #include <pthread.h>
-#include "fshare.h"
 
 /*
 typedef enum {
