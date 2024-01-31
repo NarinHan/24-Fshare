@@ -1,21 +1,3 @@
-/*  Client : request to the server and receive the response message
-    $ ./fshare 192.168.0.1:8080 list
-
-    Server 로 request :
-        - list          : send "list" + 0 + NULL
-        - get hello.txt : send "get" + strlen("hello.txt") + NULL
-        - put hi.txt    : send "put" + sizeof("hi.txt") + content of "hi.txt"
-
-    Server 로부터 다음과 같은 response message 를 받음 :
-        - list : receives files 의 directory 안의 내용 > print
-        - get hello.txt
-            - receives 오류 없음 > 끝
-            - receives 오류 있음 > 오류 메시지 print
-        - put hi.txt
-            - receives 오류 없음 > 끝
-            - receives 오류 있음 > 오류 메시지 print
-*/ 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -30,21 +12,19 @@
 #include <errno.h>
 #include <pthread.h>
 
-/*
 typedef enum {
     list,
     get,
     put,
     N_cmd
 } cmd ;
-*/
 
 char * cmd_str[N_cmd] = {
 	"list",
 	"get",
 	"put"
 } ;
-/*
+
 typedef struct {
     cmd command ;
     int src_path_len ;
@@ -56,7 +36,6 @@ typedef struct {
     int is_error ; // on success 0, on error 1
     int payload_size ;
 } server_header ;
-*/
 
 char * recv_payload = 0x0 ;
 char * send_payload = 0x0 ;
