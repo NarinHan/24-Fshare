@@ -7,4 +7,4 @@ fshared: fshared.c
 	gcc -g -o fshared fshared.c -pthread
 
 clean:
-	rm -rf fshare fshared
+	rm fshare fshared
