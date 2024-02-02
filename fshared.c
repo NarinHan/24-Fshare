@@ -228,7 +228,10 @@ get_response(int conn)
         free(recv_payload) ;
         return ;
     }
-
+    if(!S_ISREG(filestat.st_mode))
+    {
+        fprintf(stderr, "It is not regular file %s!\n", recv_payload) ;
+    }
     sh.is_error = 0 ;
     sh.payload_size = filestat.st_size ;
 
@@ -381,6 +384,7 @@ go_thread(void * arg)
     return NULL;
 }
 
+#ifndef TEST
 int
 main(int argc, char * argv[])
 {
@@ -428,3 +432,4 @@ main(int argc, char * argv[])
 
     return 0 ;
 }
+#endif
