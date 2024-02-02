@@ -189,11 +189,6 @@ parse_directory(char * toparse)
 void 
 request(const int sock_fd)
 {
-    /*  TASK : header + payload 설정하고 server 에 send
-        - list                : send "list" + 0 + 0 + NULL
-        - get a/hello.txt b/c : send "get" + strlen("a/hello.txt") + strlen(b/c) + a/hello.txt
-        - put x/hi.txt y/z    : send "put" + sizeof("x/hi.txt") + content of "x/hi.txt"
-    */
     int sent ;
     int sent_check = sizeof(ch) ;
     char * chp = (char *) &ch ;
@@ -310,6 +305,11 @@ receive_list_response(int sock_fd)
                     recv_payload = realloc(recv_payload, len + received) ;
                     memcpy(recv_payload + len, buf, received) ;
                     len += received ;
+
+		    if (len == sh.payload_size) {
+			received = 0 ;
+			break ;
+		    }
                 }
             }
             buf[ch.payload_size] = '\0' ;
@@ -454,13 +454,7 @@ main(int argc, char * argv[])
 
     /* Receive response from the server */
 
-    receive_response(sock_fd) ;
-
-    // 이렇게 설정하니 receive_get_response 받기 전에 server 에서 sending 할 때 broken pipe error 뜸
-    // if (ch.command == list) 
-    //     receive_list_response(sock_fd) ;
-    // else if (ch.command == put) 
-    //     receive_get_response(sock_fd) ; 
+    receive_response(sock_fd) ; 
     
     return 0 ;
 }
