@@ -305,11 +305,6 @@ receive_list_response(int sock_fd)
                     recv_payload = realloc(recv_payload, len + received) ;
                     memcpy(recv_payload + len, buf, received) ;
                     len += received ;
-
-		    if (len == sh.payload_size) {
-			received = 0 ;
-			break ;
-		    }
                 }
             }
             buf[ch.payload_size] = '\0' ;
